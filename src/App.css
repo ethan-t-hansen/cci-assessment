@@ -9,6 +9,7 @@
 /* Scroll container styling */
 
 .container {
+  scroll-behavior: smooth;
   margin-top: 20px;
   margin-bottom: 20px;
   display: flex;
@@ -28,11 +29,6 @@
 
 .spacer {
   min-height: 100px;
-}
-
-.div {
-  display: flex;
-  align-items: center;
 }
 
 /* Text overlay styling */

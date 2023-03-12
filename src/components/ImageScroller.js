@@ -81,7 +81,7 @@ function ImageScroller() {
   if (loading) {
     return (
       <div>
-        Loading...
+        Loading Images...
       </div>
     );
   } else {
@@ -97,10 +97,10 @@ function ImageScroller() {
             </div>
           )}
         </div>
-        <button className="button" onClick={shuffleImages}>Refresh</button>
+        <button className="button" onClick={shuffleImages}>Shuffle</button>
       </>
     );
-  }
+  } 
 }
 
 export default ImageScroller;

@@ -5,77 +5,104 @@ const url = "https://jsonplaceholder.typicode.com/photos";
 
 function ImageScroller() {
 
-  const [images, setImages] = useState([]); 
+  const [images, setImages] = useState([]);
 
-  const getImage = useCallback(() => {
-    
-    let imageList = [];
+  const [loading, setLoading] = useState(true);
+
+  // fetch images from url, place them in "images"
+  const getImages = () => {
 
     fetch(url)
-      .then((res) => res.json())
-      .then((images) => {
-        console.log("Images: ", images);
 
-        for (let i = 0; i < images.length; i++) {
-          var currimg = {
-            key: images[i].id,
-            title: images[i].title,
-            uri: images[i].url
-          }
-          imageList.push(currimg);
+      // if response is ok, pass to next, otherwise throw error
+      .then((response) => {
+        if (response.ok) {
+          return response.json()
         }
-
-        let newList = shuffleImages(imageList);
-
-        setImages(newList);
+        throw response;
       })
-      .catch((error) => {
-        console.log("Error: ", error);
-      });
-  }, []);
 
-  function shuffleImages(list) {
-    // Base case: if the list has only one item, return it
+      // map json data to a list of data that can be turned into images
+      .then((images) => {
+        let tempList = images.map(image => ({
+            key: image.id,
+            title: image.title,
+            uri: image.url
+        }));
+        setImages(tempList);  
+      })
+
+      // catch any error thrown by the first block and display an error message
+      .catch((error) => {
+        console.error("Error fetching image data: ", error);
+      })
+
+      // set loading state to false
+      .finally(() => {
+        setLoading(false);
+      });
+
+  }
+
+  // copies "images" array, shuffles it, and passes it into the setImage function
+  const shuffleImages = () => {
+    let tempList = [...images];
+    setImages(shuffled(tempList));
+  }
+
+  // shuffles a list recursively
+  function shuffled(list) {
+
+    // base case, returns the sole element in the list
     if (list.length === 1) {
       return list;
     }
   
-    // Recursive case: randomly select an item from the list and remove it
+    // randomly selects an item from the list and remove it
     const randomIndex = Math.floor(Math.random() * list.length);
-    const [randomItem] = list.splice(randomIndex, 1);
+    const [randomElement] = list.splice(randomIndex, 1);
   
-    // Recursively shuffle the remaining items in the list
-    const shuffledList = shuffleImages(list);
+    // recursively shuffles the remaining items in the list
+    const shuffledList = shuffled(list);
   
-    // Insert the randomly selected item at a random index in the shuffled list
+    // inserts the randomly selected item at a random index in the shuffled list
     const insertIndex = Math.floor(Math.random() * shuffledList.length);
-    shuffledList.splice(insertIndex, 0, randomItem);
+    shuffledList.splice(insertIndex, 0, randomElement);
   
     return shuffledList;
+
   }
 
+  // retrieves images from json once
   useEffect(() => {
-    getImage();
+    getImages();
   }, []);
 
-  return (
-    <>
-      <div className='container'>
-        {images ? (
-          images.map((imageData) => 
-          <div className="img-container">
-            <Image src={imageData.uri} title={imageData.title}/>
-            <h1 class="overlay-text">{imageData.title}</h1>
-          </div>)
-        ) : (
-          <div>
-            <p>Loading...</p>
-          </div>
-        )}
+  // Return "loading" while data is being loaded
+  if (loading) {
+    return (
+      <div>
+        Loading...
       </div>
-      <button onClick={getImage}>Refresh</button>
-    </>
-  );
+    );
+  } else {
+    return (
+      <>
+        <div className='container'>
+          {images ? (
+            images.map((imageData) => 
+              <Image src={imageData.uri} title={imageData.title}/>
+            )
+          ) : (
+            <div>
+              <p>Loading images...</p>
+            </div>
+          )}
+        </div>
+        <button className="button" onClick={shuffleImages}>Refresh</button>
+      </>
+    );
+  }
 }
 
 export default ImageScroller;

@@ -61,6 +61,15 @@ h1 {
   width: 100vh;
 }
 
+.visible {
+  opacity: 1;
+}
+
+.hidden {
+  opacity: 0;
+  font-size: 0px;
+}
+
 /* Refresh Button CSS */
 
 .button {

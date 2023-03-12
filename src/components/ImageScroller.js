@@ -1,5 +1,5 @@
 import Image from './Image';
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const url = "https://jsonplaceholder.typicode.com/photos";
 
@@ -25,9 +25,8 @@ function ImageScroller() {
       // map json data to a list of data that can be turned into images
       .then((images) => {
         let tempList = images.map(image => ({
-            key: image.id,
-            title: image.title,
-            uri: image.url
+            src: image.url,
+            title: image.title
         }));
         setImages(tempList);  
       })
@@ -58,7 +57,7 @@ function ImageScroller() {
       return list;
     }
   
-    // randomly selects an item from the list and remove it
+    // randomly selects an item from the list and removes it
     const randomIndex = Math.floor(Math.random() * list.length);
     const [randomElement] = list.splice(randomIndex, 1);
   
@@ -91,11 +90,10 @@ function ImageScroller() {
         <div className='container'>
           {images ? (
             images.map((imageData) => 
-              <Image src={imageData.uri} title={imageData.title}/>
+              <Image src={imageData.src} title={imageData.title}/>
             )
           ) : (
             <div>
-              <p>Loading images...</p>
             </div>
           )}
         </div>

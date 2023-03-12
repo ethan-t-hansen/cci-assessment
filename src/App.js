@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="app">
       <h1> Ethan Hansen </h1>
-      <h2> Convergence Concepts Inc. - FE Assessment</h2>
+      <h2> Convergence Concepts Inc. - Front-end Assessment</h2>
       <ImageScroller/>
       <div className="spacer"/>
     </div>

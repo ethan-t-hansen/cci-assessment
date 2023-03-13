@@ -1,4 +1,4 @@
-# **Convergence Front-end exercise: Reflections**
+# **Convergence Front-end exercise:**
 
 ## Specifications: 
 
@@ -40,7 +40,7 @@ Shuffling:
 
 - I got into the habit of with testing my code by using console.log() statements to check and see if certain lines of code were being called, and if certain variables had values that differ from my expectations. This simplified the debugging process a lot.
 - I got very comfortable with JS functions, useState, and useEffect, which will enhance my productivity when building responsive front-end applications in the future
-- I parsed through a large amount of documentation and tutorials pertaining to fetching data from APIs and caching images. The continuous process of learning new things, testing out potential implementations, and debugging is difficult and frustrating at times but also very rewarding and I'd like to think it makes me more resilient as a developer.
+- I parsed through a large amount of documentation and tutorials pertaining to fetching data from APIs and caching images. The continuous process of learning new things, testing out potential implementations, and debugging is difficult and frustrating at times but also very rewarding - I enjoy the challenge.
 
 ## **Thanks!**
 

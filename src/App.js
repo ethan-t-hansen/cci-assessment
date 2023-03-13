@@ -1,7 +1,5 @@
 import ImageScroller from './components/ImageScroller';
-import CacheImage from './components/Image';
 import './App.css';
-import {View, Image, StyleSheet} from 'react-native';
 
 function App() {
   return (

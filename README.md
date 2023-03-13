@@ -1,4 +1,4 @@
-# **Convergence Front-end exercise: Reflections**
+# **Convergence Front-end exercise:**
 
 ## Specifications: 
 

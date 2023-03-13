@@ -6,7 +6,6 @@ const url = "https://jsonplaceholder.typicode.com/photos";
 function ImageScroller() {
 
   const [images, setImages] = useState([]);
-
   const [loading, setLoading] = useState(true);
 
   // fetch images from url, place them in "images"
@@ -22,13 +21,9 @@ function ImageScroller() {
         throw response;
       })
 
-      // map json data to a list of data that can be turned into images
-      .then((images) => {
-        let tempList = images.map(image => ({
-            src: image.url,
-            title: image.title
-        }));
-        setImages(tempList);  
+      // set images state to fetched json data
+      .then((imageData) => {
+        setImages(imageData);  
       })
 
       // catch any error thrown by the first block and display an error message
@@ -43,7 +38,7 @@ function ImageScroller() {
 
   }
 
-  // copies "images" array, shuffles it, and passes it into the setImage function
+  // makes a copy of the current state of images, shuffles it, and sets the state to the shuffled list
   const shuffleImages = () => {
     let tempList = [...images];
     setImages(shuffled(tempList));
@@ -53,18 +48,18 @@ function ImageScroller() {
   function shuffled(list) {
 
     // base case, returns the sole element in the list
-    if (list.length === 1) {
+    if (list.length <= 1) {
       return list;
     }
   
-    // randomly selects an item from the list and removes it
+    // randomly selects an index in list and removes the element at that index
     const randomIndex = Math.floor(Math.random() * list.length);
     const [randomElement] = list.splice(randomIndex, 1);
   
-    // recursively shuffles the remaining items in the list
+    // the result of the recursive call, which should be a randomly shuffled list
     const shuffledList = shuffled(list);
   
-    // inserts the randomly selected item at a random index in the shuffled list
+    // inserts the previously removed element into the shuffled list at a random index
     const insertIndex = Math.floor(Math.random() * shuffledList.length);
     shuffledList.splice(insertIndex, 0, randomElement);
   
@@ -72,16 +67,16 @@ function ImageScroller() {
 
   }
 
-  // retrieves images from json once
+  // retrieve images from json
   useEffect(() => {
     getImages();
   }, []);
 
-  // Return "loading" while data is being loaded
+  // Loading mesage while data is being loaded, then render image list
   if (loading) {
     return (
       <div>
-        Loading Images...
+        Fetching Image Data...
       </div>
     );
   } else {
@@ -89,13 +84,8 @@ function ImageScroller() {
       <>
         <div className='container'>
           {images ? (
-            images.map((imageData) => 
-              <Image src={imageData.src} title={imageData.title}/>
-            )
-          ) : (
-            <div>
-            </div>
-          )}
+            images.map((imageData) => <Image src={imageData.url} title={imageData.title}/>)
+          ) : (<div/>)}
         </div>
         <button className="button" onClick={shuffleImages}>Shuffle</button>
       </>

@@ -7,7 +7,7 @@ class Image extends React.Component {
     return (
       <div className="img-container">
         <img src={this.props.src} title={this.props.title} alt={this.props.title}/>
-        <h2 className="overlay-text">{this.props.title}</h2>
+        <h1 className="overlay-text">{this.props.title}</h1>
       </div>
     );
     

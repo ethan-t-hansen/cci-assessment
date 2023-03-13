@@ -1,3 +1,9 @@
+/* Test to see element outlines
+* {
+  border: 1px solid red;
+}
+*/
+
 h1, h2, h3 {
   font-family: Helvetica,Arial,sans-serif;
   color: #1A1A1A;
@@ -35,14 +41,10 @@ h1, h2, h3 {
 
 /* Text overlay styling */
 
-.centered {
-  position: absolute;
-  align-items: center;
-  top: 50%;
-  text-align: center;
-}
-
 .img-container {
+  min-width: 706px;
+  min-height: 706px;
+  background-color: transparent;
   display: flex;
   position: relative;
   justify-content: center;
@@ -61,15 +63,6 @@ h1, h2, h3 {
   align-items: center;
   height: 100vh;
   width: 100vh;
-}
-
-.visible {
-  opacity: 1;
-}
-
-.hidden {
-  opacity: 0;
-  font-size: 0px;
 }
 
 /* Refresh Button CSS */
